@@ -1,0 +1,1710 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Microsoft Build 2026 - Fabric, Power BI and Microsoft Databases Announcements</title>
+            <style>
+                :root {
+                    --bg: #faf9f8;
+                    --surface: #ffffff;
+                    --text: #201f1e;
+                    --muted: #605e5c;
+                    --border: #edebe9;
+                    --accent: #0078d4;
+                }
+                * { box-sizing: border-box; }
+                body {
+                    margin: 0;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Variable", Roboto, sans-serif;
+                    background: var(--bg);
+                    color: var(--text);
+                    line-height: 1.5;
+                }
+                header.page {
+                    background: linear-gradient(135deg, #0078d4 0%, #5c2d91 100%);
+                    color: white;
+                    padding: 48px 32px;
+                }
+                header.page h1 {
+                    margin: 0 0 12px 0;
+                    font-size: 32px;
+                    font-weight: 600;
+                }
+                header.page p {
+                    margin: 0;
+                    opacity: 0.95;
+                    max-width: 80ch;
+                    font-size: 15px;
+                }
+                header.page .byline {
+                    margin-top: 14px;
+                    font-size: 12px;
+                    opacity: 0.75;
+                    letter-spacing: 0.02em;
+                }
+                main {
+                    max-width: 1280px;
+                    margin: 0 auto;
+                    padding: 32px;
+                }
+                .legend {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    margin-bottom: 32px;
+                    align-items: center;
+                }
+                .legend strong {
+                    margin-right: 8px;
+                    color: var(--muted);
+                }
+                .stats {
+                    display: flex;
+                    gap: 32px;
+                    margin-bottom: 32px;
+                    flex-wrap: wrap;
+                }
+                .stat {
+                    background: var(--surface);
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    padding: 16px 24px;
+                    min-width: 140px;
+                }
+                .stat .num {
+                    font-size: 28px;
+                    font-weight: 700;
+                    color: var(--accent);
+                }
+                .stat .label {
+                    color: var(--muted);
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.04em;
+                }
+                nav.toc {
+                    background: var(--surface);
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    padding: 24px;
+                    margin-bottom: 40px;
+                }
+                nav.toc h2 {
+                    margin: 0 0 16px 0;
+                    font-size: 16px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    color: var(--muted);
+                }
+                nav.toc ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                    gap: 8px;
+                }
+                nav.toc a {
+                    color: var(--accent);
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+                nav.toc a:hover { text-decoration: underline; }
+                nav.toc .count {
+                    color: var(--muted);
+                    font-size: 12px;
+                    margin-left: 4px;
+                }
+                section {
+                    margin: 48px 0;
+                }
+                section h2 {
+                    font-size: 22px;
+                    border-bottom: 2px solid var(--accent);
+                    padding-bottom: 8px;
+                    margin: 0 0 24px 0;
+                    display: flex;
+                    align-items: baseline;
+                    gap: 12px;
+                }
+                section h2 .count {
+                    color: var(--muted);
+                    font-size: 13px;
+                    font-weight: 400;
+                    background: var(--border);
+                    border-radius: 999px;
+                    padding: 2px 10px;
+                }
+                .grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+                    gap: 16px;
+                }
+                .card {
+                    background: var(--surface);
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    transition: box-shadow 0.15s, border-color 0.15s;
+                }
+                .card:hover {
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    border-color: var(--accent);
+                }
+                .card header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    gap: 12px;
+                }
+                .card h3 {
+                    margin: 0;
+                    font-size: 15px;
+                    font-weight: 600;
+                    flex: 1;
+                }
+                .card p {
+                    margin: 0;
+                    color: var(--text);
+                    font-size: 14px;
+                }
+                .card .source {
+                    color: var(--accent);
+                    text-decoration: none;
+                    font-size: 12px;
+                    margin-top: auto;
+                    padding-top: 8px;
+                    border-top: 1px solid var(--border);
+                }
+                .card .source:hover { text-decoration: underline; }
+                .card.has-details {
+                    cursor: pointer;
+                }
+                .card.has-details:hover {
+                    border-color: var(--accent);
+                }
+                .card .card-extended {
+                    display: none;
+                    background: var(--bg);
+                    border-left: 3px solid var(--accent);
+                    padding: 14px 18px;
+                    margin: 4px 0 0 0;
+                    border-radius: 0 4px 4px 0;
+                }
+                .card.expanded .card-extended {
+                    display: block;
+                }
+                .card .card-extended p {
+                    font-size: 13px;
+                    color: var(--text);
+                    margin: 0 0 10px 0;
+                    line-height: 1.55;
+                }
+                .card .card-extended p:last-child {
+                    margin-bottom: 0;
+                }
+                .card .card-extended ul {
+                    margin: 0 0 10px 0;
+                    padding-left: 22px;
+                }
+                .card .card-extended li {
+                    font-size: 13px;
+                    margin-bottom: 4px;
+                }
+                @media print {
+                    .card .card-extended { display: block !important; }
+                }
+                .badge {
+                    color: white;
+                    padding: 3px 10px;
+                    border-radius: 999px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.04em;
+                    white-space: nowrap;
+                }
+                footer {
+                    max-width: 1280px;
+                    margin: 32px auto;
+                    padding: 32px;
+                    background: var(--surface);
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                }
+                footer h2 {
+                    font-size: 16px;
+                    margin-top: 0;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    color: var(--muted);
+                }
+                footer ol { padding-left: 24px; }
+                footer li { margin-bottom: 6px; font-size: 14px; }
+                footer a { color: var(--accent); }
+            </style>
+        </head>
+        <body>
+            <header class="page">
+                <h1>Microsoft Build 2026</h1>
+                <p>Fabric, Power BI and Microsoft Databases announcements. Deduplicated across 12 source blogs, grouped by Fabric Roadmap workload, with status and link to the original announcement for every feature.</p>
+                <p class="byline">Made by Roman Singele, with GitHub Copilot.</p>
+            </header>
+
+            <main>
+                <div class="stats">
+                    <div class="stat"><div class="num">135</div><div class="label">distinct features</div></div>
+                    <div class="stat"><div class="num">11</div><div class="label">workload categories</div></div>
+                    <div class="stat"><div class="num">12</div><div class="label">source blogs</div></div>
+                </div>
+
+                <div class="legend">
+                    <strong>Status:</strong>
+                    <span class="badge" style="background:#107C10">GA</span><span class="badge" style="background:#0078D4">Public Preview</span><span class="badge" style="background:#5C2D91">Private Preview</span><span class="badge" style="background:#D83B01">Coming Soon</span><span class="badge" style="background:#8764B8">Frontier</span><span class="badge" style="background:#605E5C">Unknown</span>
+                </div>
+
+                <nav class="toc">
+                    <h2>Workload categories</h2>
+                    <ul><li><a href="#governance-and-security">Governance and Security</a> <span class="count">7</span></li><li><a href="#data-engineering">Data Engineering</a> <span class="count">7</span></li><li><a href="#data-science">Data Science</a> <span class="count">2</span></li><li><a href="#data-warehouse">Data Warehouse</a> <span class="count">11</span></li><li><a href="#data-factory">Data Factory</a> <span class="count">34</span></li><li><a href="#real-time-intelligence">Real-Time Intelligence</a> <span class="count">17</span></li><li><a href="#iq-fabric-iq">IQ (Fabric IQ)</a> <span class="count">26</span></li><li><a href="#onelake">OneLake</a> <span class="count">5</span></li><li><a href="#power-bi">Power BI</a> <span class="count">4</span></li><li><a href="#fabric-developer-experiences">Fabric Developer Experiences</a> <span class="count">4</span></li><li><a href="#databases">Databases</a> <span class="count">18</span></li></ul>
+                </nav>
+
+
+            <section id="governance-and-security">
+                <h2>Governance and Security <span class="count">7</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Mirroring with Workspace Private Link expansion</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Workspace private link now covers mirroring for Azure SQL DB, SQL Server 2016 to 2022, SAP Datasphere, and SharePoint List.</p>
+    <div class="card-extended"><p>Workspace private link now applies to mirroring across Azure SQL Database, all SQL Server versions from 2016 to 2022, SAP Datasphere, and SharePoint Lists. This means change feeds from those sources can land in OneLake without ever traversing the public internet, even when the source itself sits in a locked-down enterprise network.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Outbound Access Protection for cross-workspace event flows</h3>
+        <span class="badge" style="background:#605E5C">Unknown</span>
+    </header>
+    <p>Restricts where Azure and Fabric events can flow across workspaces, complementing tenant private link policies.</p>
+    <div class="card-extended"><p>When enabled on a workspace, cross-workspace event consumption is blocked by default; admins explicitly grant access by adding the Real-Time Events connector to the workspace&#x27;s data connection rules. Event consumption within the same workspace is always allowed.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure Blob Storage Events with tenant private links</h3>
+        <span class="badge" style="background:#605E5C">Unknown</span>
+    </header>
+    <p>Event Grid system topics are now trusted under tenant private link policy so blob events can flow without weakening network posture.</p>
+    <div class="card-extended"><p>Event Grid system topics for Azure Blob Storage are now recognized as trusted sources under the tenant private link policy. Blob-level events can therefore reach Fabric Eventstreams and Activator rules without forcing customers to open up their network or weaken their existing posture.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Workspace Identity authentication for SharePoint</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Power BI Service and Fabric Dataflows Gen2 can authenticate to SharePoint using the workspace identity, removing the need for stored credentials.</p>
+    <div class="card-extended"><p>Power BI Service and Fabric Dataflows Gen2 can now authenticate to SharePoint using the workspace identity instead of a stored user credential. This removes a long-standing source of broken refreshes (people leaving, passwords expiring) and aligns SharePoint access with modern identity governance.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Snowflake secret-less authentication via Workspace Identity</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Fabric workspace identity can now authenticate directly to Snowflake without secrets.</p>
+    <div class="card-extended"><p>Fabric workspace identity is now a first-class principal in Snowflake, so dataflows and pipelines can authenticate without storing any secrets. Combined with the new Snowflake Native App for Fabric, it makes cross-platform analytics scenarios much easier to operate and audit.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Microsoft Entra server-level logins and fixed server roles for SQL</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA across the SQL family, replacing legacy server-level password logins with Entra principals and built-in fixed server roles.</p>
+    <div class="card-extended"><p>Across Azure SQL Database, Managed Instance, and SQL Server, you can now use Entra principals as server-level logins and combine them with built-in fixed server roles. This replaces legacy SQL authentication patterns and brings the SQL family in line with the rest of the Microsoft identity stack.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Transparent Data Encryption with AES key support in Azure SQL Database</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Quantum-resistant AES key option for TDE, in addition to existing RSA keys.</p>
+    <div class="card-extended"><p>TDE can now be backed by a customer-managed AES key in addition to the existing RSA option, giving security teams a quantum-resistant cryptographic choice for data-at-rest. Useful for organizations that are already planning their crypto-agility roadmap.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="data-engineering">
+                <h2>Data Engineering <span class="count">7</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Native Execution Engine: complex data types</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Arrays, maps, and structs now execute inside the C++ native engine, removing fallbacks and unlocking Z-ORDER and Liquid Clustering for nested data.</p>
+    <div class="card-extended"><p>The C++ native engine now executes arrays, maps, and structs natively, instead of falling back to the JVM for nested data. This removes a major performance cliff for IoT, JSON, and semi-structured workloads, and it finally unlocks Z-ORDER and Liquid Clustering on tables with nested columns.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Native Execution Engine: native UDF execution</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Python and Scala/Java UDFs execute natively for materially faster Spark jobs.</p>
+    <div class="card-extended"><p>Python and Scala/Java user-defined functions now run inside the native execution engine rather than incurring a context switch back to the JVM/Python interpreter. Spark jobs that lean heavily on UDFs (which most enterprise jobs do) see materially better latency and lower cost.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Efficient Scaledown with Remote Shuffle Manager</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Shuffle data is offloaded to Azure Blob storage so Spark clusters can scale down aggressively without losing state.</p>
+    <div class="card-extended"><p>Shuffle data is offloaded to Azure Blob storage so executors can release their local disks safely, allowing Spark to scale clusters down aggressively mid-job without losing state. The practical impact is lower spend on long-running, variable workloads.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Lakehouse Query Explorer</h3>
+        <span class="badge" style="background:#D83B01">Coming Soon</span>
+    </header>
+    <p>In-context Spark SQL authoring inside the Lakehouse UI for ad hoc exploration.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Runtime 2.0</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Apache Spark 4.1, Delta Lake 4.1, and Python 3.13 brought together in the next Fabric Spark runtime.</p>
+    <div class="card-extended"><p>The next Fabric Spark runtime, bundling Apache Spark 4.1, Delta Lake 4.1, and Python 3.13. Beyond raw performance gains, it brings access to the newest Spark features (variant type, improved Python UDFs, SQL pipe syntax) without you having to manage the upgrade.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Extended Lineage for Materialized Lake Views</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Lineage now spans across lakehouses and workspaces for materialized lake views.</p>
+    <div class="card-extended"><p>Lineage for MLVs now follows dependencies across lakehouses and across workspaces, not just within a single artifact. This makes impact analysis and audit a lot less painful when MLVs are used as shared building blocks across data products.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Authorizer User Data Functions for API for GraphQL</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Define UDF-backed authorizers to enforce custom access logic on GraphQL endpoints in Fabric.</p>
+    <div class="card-extended"><p>You can now wire a UDF as an authorizer in front of a GraphQL endpoint, expressing custom access rules in code that runs per request. This unlocks fine-grained, business-aware authorization patterns that go beyond static RLS.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="data-science">
+                <h2>Data Science <span class="count">2</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>MLflow 3 in Fabric</h3>
+        <span class="badge" style="background:#605E5C">Unknown</span>
+    </header>
+    <p>Refreshed experiment management with tracing, logged models, and a GenAI-friendly experience.</p>
+    <div class="card-extended"><p>The next generation of MLflow inside Fabric, with refreshed experiment management, native tracing, logged models as first-class entities, and a GenAI-friendly experience. It positions Fabric Data Science as a credible home for both classical ML and modern agentic/LLM workflows.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>AI Functions refresh</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>New default model (gpt-5-mini), no more openai package dependency, and better usage telemetry.</p>
+    <div class="card-extended"><p>AI Functions now default to gpt-5-mini, drop the previous dependency on the openai Python package, and surface much better usage telemetry. The result is simpler authoring (a one-line call from SQL, PySpark, or pandas) plus clearer cost and consumption visibility.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="data-warehouse">
+                <h2>Data Warehouse <span class="count">11</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>GPU-Accelerated Fabric Data Warehouse</h3>
+        <span class="badge" style="background:#605E5C">Early Access Preview (July 2026)</span>
+    </header>
+    <p>Native GPU execution for Fabric DW T-SQL queries, built on the CoddSpeed engine that won the SIGMOD 2026 Best Industry Paper.</p>
+    <div class="card-extended"><p>Fabric Data Warehouse becomes the first fully managed warehouse to offer GPU acceleration. It is enabled via a workspace setting, runs your existing T-SQL with no rewrites, and is built on the CoddSpeed engine that won SIGMOD 2026&#x27;s Best Industry Paper.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/From-research-to-product-Microsoft-Fabric-wins-best-industry/ba-p/5191608" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: From research to product: Microsoft Fabric wins SIGMOD Best Industry Paper (CoddSpeed) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Cache Cooldown Configurability</h3>
+        <span class="badge" style="background:#D83B01">Coming Soon</span>
+    </header>
+    <p>Tenants can tune how aggressively the warehouse cache is reclaimed.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Reimagined Fabric Data Warehouse Web UI</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New Object Explorer, Data Grid, IntelliSense, table overview page, and embedded Copilot chat inside the SQL editor.</p>
+    <div class="card-extended"><p>A full refresh of the warehouse web experience: new Object Explorer, Data Grid, IntelliSense, table overview pages, and an embedded Copilot chat inside the SQL editor.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>CI/CD for SQL analytics endpoint</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>DacFx-based deployment model for SQL analytics endpoint objects.</p>
+    <div class="card-extended"><p>DacFx-based deployment for the SQL analytics endpoint of Lakehouses, so views, functions, and security objects defined on top of Delta tables become deployable artifacts. Brings Lakehouse SQL surfaces into the same code-first DevOps story as Warehouse and Azure SQL.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Pre and Post deployment scripts for Fabric Warehouse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Run custom T-SQL before or after warehouse deployments for environment setup or smoke tests.</p>
+    <div class="card-extended"><p>Run custom T-SQL before and after a warehouse deployment, ideal for environment-specific configuration, smoke tests, or data backfills. A standard expectation for anyone coming from a SQL Projects background.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>ALTER COLUMN in Fabric Warehouse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>In-place column type and nullability changes without rebuilds.</p>
+    <div class="card-extended"><p>Change a column&#x27;s data type or nullability in place, without rebuilding the table or writing a migration script. Long-requested capability that makes everyday schema evolution far less painful.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Datawarehouse Monitor</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Successor to Query Activity with richer query observability and historical analysis.</p>
+    <div class="card-extended"><p>Successor to Query Activity, with richer query observability, drill-down into individual executions, and historical analysis over time. The basis for proper performance triage and capacity planning on Fabric Warehouse.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Enhanced metadata sync in SQL analytics endpoint</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New sync engine with a 30-second freshness SLO between Delta tables and the SQL endpoint.</p>
+    <div class="card-extended"><p>Once Delta logs reflecting a change are in storage, the SQL endpoint returns the latest data within 30 seconds, even if the endpoint was previously deactivated. Enabled via the &#x27;new enhanced metadata sync&#x27; workspace setting.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Configurable Retention in Fabric Warehouse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Set retention from 1 to 120 days to control time-travel storage costs.</p>
+    <div class="card-extended"><p>Set time-travel retention from 1 to 120 days at the warehouse level, balancing recoverability against storage cost. Useful for environments where the default 7 days is either overkill or insufficient.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Time Travel via SQL analytics endpoint</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Query historical versions of Lakehouse Delta tables through the SQL endpoint.</p>
+    <div class="card-extended"><p>Add the OPTION (FOR TIMESTAMP AS OF &#x27;yyyy-MM-ddTHH:mm:ss.fff&#x27;) clause once at the T-SQL statement level. The timestamp applies consistently across the entire query, whether a SELECT, multi-table join, view, or stored procedure.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Procedural UDFs in Fabric Warehouse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>User-defined functions with procedural logic for richer in-warehouse transformations.</p>
+    <div class="card-extended"><p>User-defined functions can now contain procedural logic, not just a single SELECT. Enables helper routines for stored procedures and code reuse across complex ELT patterns.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="data-factory">
+                <h2>Data Factory <span class="count">34</span></h2>
+                <div class="grid">
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Enhanced Dataflow Gen2 diagnostics with OPDG logs</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>On-premises data gateway logs are surfaced in dataflow diagnostics for faster troubleshooting.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Secure ingestion into Fabric Data Warehouse with Copy job and Copy activity</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, with full support for workspace private link, Outbound Access Protection, and VNet/OPDG.</p>
+    <div class="card-extended"><p>Copy job and Copy activity now stage into Fabric Data Warehouse in the most locked-down topologies: workspace private link, Outbound Access Protection, VNet data gateway, and on-premises data gateway. This is the unlock for regulated industries that previously could not ingest into Warehouse from a private network.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Open mirroring integration with Stelo</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Third-party CDC vendor Stelo can now publish into Fabric open mirroring.</p>
+    <div class="card-extended"><p>Stelo, a specialized third-party CDC vendor, can now publish directly into Fabric&#x27;s open mirroring pattern. Adds another supported path for organizations that already rely on Stelo for change capture against complex source systems.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Dataflow Execute Query API (Streaming API)</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, allowing programmatic execution of Power Query against Dataflow Gen2.</p>
+    <div class="card-extended"><p>Programmatically execute Power Query against a Dataflow Gen2 and stream back the results, without materializing them in OneLake first. Useful for embedding Power Query logic into applications and agents.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Mapping Data Flows in Dataflow Gen2</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Bring ADF-style Mapping Data Flow transformations into Fabric Dataflow Gen2.</p>
+    <div class="card-extended"><p>The visual, code-free transformation experience from Azure Data Factory comes to Fabric Dataflow Gen2, supporting large-scale Spark-backed transformations.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Dataflow Gen2 performance for Warehouse to Lakehouse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Faster execution path when source is Warehouse and destination is Lakehouse.</p>
+    <div class="card-extended"><p>A faster execution path optimized for the common pattern of reading from a Fabric Warehouse and writing back to a Lakehouse. Targets the typical &#x27;curate in Warehouse, publish to Lakehouse for downstream&#x27; workflow.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>My Queries in Dataflow Gen2</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Personal scratch queries inside the dataflow editor that are not part of the saved artifact.</p>
+    <div class="card-extended"><p>Personal, scratch queries inside the dataflow editor that are not saved as part of the artifact itself. Lets developers iterate and experiment without polluting the published dataflow with throwaway logic.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Modern Get Data in Power BI Desktop</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New Get Data experience built on the OneLake Catalog with 170+ connectors and Fabric-native discovery.</p>
+    <div class="card-extended"><p>Built around the OneLake Catalog for Fabric data discovery, with a streamlined connector experience across the 170+ Power Query connectors. Simplifies everyday tasks like authentication and setup.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>dbt job pipeline activity and UX improvements</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Native pipeline activity for dbt jobs with a refreshed authoring experience.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>dbt job API for CI/CD</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Programmatic management of dbt jobs for pipelines as code.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>dbt job export project round-trip</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Export dbt jobs to a project file for round-trip development outside Fabric.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Refresh SQL Endpoint pipeline activity</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, for explicit SQL endpoint metadata refresh in pipelines.</p>
+    <div class="card-extended"><p>A dedicated pipeline activity to explicitly refresh the SQL analytics endpoint metadata for a Lakehouse. Useful right after large Delta writes when you want downstream consumers to see the change immediately, rather than waiting for background sync.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Approval Activity in Fabric Pipelines</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Insert human approval steps for business workflow orchestration.</p>
+    <div class="card-extended"><p>Insert a human approval step inside a pipeline, with notifications and a decision UI. Integrates workflow approval directly into Fabric Pipelines, without requiring Logic Apps or Power Automate.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Refresh Materialized Lake View pipeline activity</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Native activity to trigger MLV refreshes in pipelines.</p>
+    <div class="card-extended"><p>Each refresh run uses Fabric&#x27;s built-in optimization: it automatically determines whether a full refresh, incremental refresh, or no refresh is needed based on changes in the underlying data.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Conditional activity retries</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Per-activity conditional retry policies in pipelines.</p>
+    <div class="card-extended"><p>Configure per-activity retry policies that depend on the type of failure, rather than a single fixed retry count applied to all errors.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Modern Fabric Pipeline node canvas</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New canvas optimized for very large pipelines.</p>
+    <div class="card-extended"><p>A redesigned pipeline canvas with improved navigation, minimap, and performance for very large pipelines.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Connection and Item reference support for Variable Libraries in Pipelines</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Pipeline variables can now reference connections and items from Variable Libraries, simplifying dev-to-prod promotion.</p>
+    <div class="card-extended"><p>Adds two new Variable Library variable types: connection references (for external data sources) and item references (for Fabric resources such as Lakehouses, notebooks, or pipelines). Activity settings resolve them at runtime.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Airflow Workspace Identity authentication</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Apache Airflow jobs in Fabric can use the workspace identity for downstream auth.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Variable Library support in Apache Airflow job</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Airflow jobs can read from Fabric Variable Libraries.</p>
+    <div class="card-extended"><p>Define a single Variable Library with multiple value sets (for example dev, test, prod) and mark one active per workspace. Airflow resolves the right values automatically, with no DAG edits or redeployment when switching value sets.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Airflow Copilot</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Natural language DAG authoring assistance inside Apache Airflow job.</p>
+    <div class="card-extended"><p>Natural language assistance for both authoring and debugging Apache Airflow DAGs inside the Fabric Airflow job experience.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>CDC with SQL estates in Copy job</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, for incremental change feeds from Azure SQL DB, Azure SQL Managed Instance, and SQL Server into Fabric.</p>
+    <div class="card-extended"><p>Capture inserts, updates, and deletes from Azure SQL Database, SQL Managed Instance, and SQL Server, and replicate them incrementally to Fabric with no manual scaffolding. The production-grade option for SQL-to-Fabric incremental movement now that GA is reached.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Switch full or incremental copy post-creation in Copy job</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, allowing copy mode changes without recreating the job.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Edit Copy job via JSON payloads</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, exposing the JSON definition for code-first editing.</p>
+    <div class="card-extended"><p>Expose the JSON definition of a Copy job for direct, code-first editing and source control. The missing piece for teams that want to manage Copy jobs alongside the rest of their Fabric items in Git.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Activator support for triggering Copy job</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, so Activator rules can launch Copy jobs.</p>
+    <div class="card-extended"><p>Activator rules can now launch Copy jobs as their action. Enables real-time, event-driven ingestion patterns: a file arrives, an event fires, a Copy job runs.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Truncate Destination before Full Copy in Copy job</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, with built-in destination truncation.</p>
+    <div class="card-extended"><p>Clears the destination before a full reload, preventing duplicate rows from accumulating.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Copy job new destinations</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, adding Google BigQuery, MySQL, and PostgreSQL as Copy job destinations.</p>
+    <div class="card-extended"><p>Copy job now supports Google BigQuery, MySQL, and PostgreSQL as destinations, expanding Copy job from Fabric-inbound ingestion to multi-cloud egress.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Extended SCD Type 2 support in Copy job</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>SCD Type 2 patterns extended to Fabric Warehouse and Synapse SQL pool destinations.</p>
+    <div class="card-extended"><p>Captures deletes as soft deletes: when a record is removed at the source, the corresponding row in the destination is marked inactive rather than physically deleted, preserving an audit-ready view of historical records.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Extended auto-partition in Copy job</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Auto-partitioning extended to Oracle, Fabric Lakehouse, and SAP HANA sources.</p>
+    <div class="card-extended"><p>Auto-partitioning for parallel reads now covers Oracle, Fabric Lakehouse, and SAP HANA sources, enabling faster initial loads from large tables without manual partition configuration.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>SAP data integration via Copy job with ABAP Add-On</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Read SAP application data through the ABAP Add-On directly from Copy job.</p>
+    <div class="card-extended"><p>Extends Fabric&#x27;s built-in SAP connectivity (SAP HANA, SAP Table, SAP BW OpenHub) with a Microsoft-built ABAP Add-On installed on the SAP server. Enables more advanced extraction logic than what standard SAP APIs allow.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Data Factory Skills</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Agentic authoring, consumption, and diagnostics across Pipelines, Copy job, and Connections &amp; Gateways.</p>
+    <div class="card-extended"><p>Agentic authoring, consumption, and diagnostics for Pipelines, Copy job, and Connections &amp; Gateways. Lets people describe what they want in natural language and have the agent assemble or troubleshoot the Data Factory artifact.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Airflow support for Data Factory MCP</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Expose Apache Airflow as an MCP-callable target for agentic Data Factory.</p>
+    <div class="card-extended"><p>Expose Apache Airflow as a callable target through the Model Context Protocol, so agents in Fabric can orchestrate Airflow alongside other Data Factory primitives. Closes the loop between agentic authoring and existing Airflow-based estates.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>ADF to Fabric migration with MDF support</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>The migration tool now handles Mapping Data Flows from Azure Data Factory.</p>
+    <div class="card-extended"><p>The migration tool now handles Mapping Data Flows from Azure Data Factory, in addition to pipelines and datasets. Removes the last big remaining blocker for customers wanting to move their full ADF estate onto Fabric.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>ADF to Fabric migration tool from migrate pane</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Launch the migration tool directly from the Fabric migrate pane.</p>
+    <div class="card-extended"><p>Launch the ADF migration tool directly from the dedicated migrate pane inside Fabric. A small UX change that surfaces the capability to people who would otherwise never find it.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Build 2026: From data to intelligence, faster with Fabric Data Factory &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Google BigQuery V2 Connector (ADBC)</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New ADBC-based BigQuery connector with improved performance and type fidelity.</p>
+    <div class="card-extended"><p>The original connector was built on ODBC; V2 is built on Apache Arrow Database Connectivity (ADBC), a cloud-native standard for high-throughput analytical data transfer. All future enhancements to the BigQuery connector will be delivered through V2.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="real-time-intelligence">
+                <h2>Real-Time Intelligence <span class="count">17</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Stream Mirrored Database change feeds into Eventstreams</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New Mirrored Database Change Feed connector pipes mirrored CDC straight into Eventstream for real-time downstream use.</p>
+    <div class="card-extended"><p>A new Mirrored Database Change Feed connector pipes mirrored CDC straight into Eventstream. Customers can now build genuinely real-time downstream applications on top of an operational source they have mirrored to OneLake, with no extra plumbing.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Real-Time Dashboards AI-powered visual creation</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New Copilot tile editor builds visuals from natural language.</p>
+    <div class="card-extended"><p>Includes a larger preview area, fully adaptive panels, and a chat history preserved per visual and across sessions for reverting to previous suggestions. Users can switch between AI-assisted and manual editing on the same tile.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Time Series Visualization</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>First-class time series chart type in Real-Time Dashboards.</p>
+    <div class="card-extended"><p>A first-class time-series chart type in Real-Time Dashboards, with built-in handling of irregular sampling and gap filling.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Share Copilot Exploration Insights</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Save and share insights from Copilot-driven RTI explorations.</p>
+    <div class="card-extended"><p>Insights are shared via a link that opens the same query and results, with an option to include the visual. Recipients can re-run or adjust the query, modify the visual, re-share, or save the query into an existing or new KQL Queryset.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Real-Time Dashboards Live Refresh</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, for sub-second live data refresh on dashboards.</p>
+    <div class="card-extended"><p>Sub-second live refresh on Real-Time Dashboards, now GA. Critical for operational scenarios where the dashboard is part of the workflow (network operations, factory floor, trading) and not an occasional read.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Eventstream observability through Workspace Monitoring</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Eventstream metrics, logs, and traces surface in workspace monitoring.</p>
+    <div class="card-extended"><p>Eventstream metrics, logs, and traces now flow into the standard workspace monitoring surface alongside the rest of the Fabric items. Means a single pane for ops teams running mixed Fabric workloads.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Eventstream as Business Events Publisher</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Eventstreams can publish Business Events into the Fabric event grid.</p>
+    <div class="card-extended"><p>Eventstreams can now emit Business Events into the Fabric event grid. Lets you treat a stream as a high-volume source of declared business events that other Fabric items, agents, or applications can subscribe to.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Activator as Business Events Publisher</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Activator rules can emit Business Events.</p>
+    <div class="card-extended"><p>Activator rules can now emit Business Events when their condition fires. This is the bridge that turns a rule evaluation result into something that the wider event-driven Fabric ecosystem can react to.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Analyze Business Events in Eventhouse and Real-Time Dashboards</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Business Events become first-class data in Eventhouse and RTD.</p>
+    <div class="card-extended"><p>Business Events become first-class data in Eventhouse and Real-Time Dashboards, so you can analyze what happened, when, and how often. Closes the loop between emitting events and understanding the patterns they reveal.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Business Events Capacity Consumption model</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Defined and now generally available metering for Business Events on Fabric capacity.</p>
+    <div class="card-extended"><p>A defined, transparent metering model for Business Events on Fabric capacity, now GA. Removes the previous ambiguity around how event volumes show up on the bill.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>MQTT broker custom CA and mTLS in Eventstream</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Connect to private MQTT brokers with custom certificate authorities and mutual TLS.</p>
+    <div class="card-extended"><p>Customers bring their own CA and client certificates from Azure Key Vault. Extends the same Custom CA and mTLS support already available for Kafka-based sources and the Confluent Schema Registry.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Extended IoT Hub Eventstream connector</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>The IoT Hub connector now preserves both system and user metadata end to end.</p>
+    <div class="card-extended"><p>Built on the Kafka Connect framework. System metadata keys are prefixed with &#x27;___src__&#x27; (for example &#x27;iothub-connection-device-id&#x27; becomes &#x27;___src__iothub-connection-device-id&#x27;). Enabled by selecting Extended features when configuring the IoT Hub source.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Eventstream Kafka and Azure Service Bus connectors</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, with SASL_SSL, custom CA, and mTLS auth.</p>
+    <div class="card-extended"><p>SASL_SSL combines SASL-based authentication (PLAIN or SCRAM) with SSL/TLS encryption. Custom CA and mTLS support uses CA and client certificates stored in Azure Key Vault, for Kafka clusters that use private CAs or require mutual TLS.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Pagination support for Eventstream HTTP connector</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>The HTTP connector can follow paginated REST sources.</p>
+    <div class="card-extended"><p>Supports both page-based pagination (page numbers, page size, offsets) and cursor-based pagination (continuation tokens, next-page markers). Eventstream continues requesting pages until the API indicates no more data is available.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Activator real-time triggers for Dataflows and User-Defined Functions</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, expanding the actions Activator can launch.</p>
+    <div class="card-extended"><p>Activator can now trigger Dataflows Gen2 and User Data Functions in addition to Fabric pipelines. Means a near-real-time event can fan out to almost anything Fabric can run.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Activator real-time triggers for Copy Jobs</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Activator can now trigger Copy jobs in addition to other targets.</p>
+    <div class="card-extended"><p>Activator can now also launch Copy jobs as a trigger action. Completes the event-driven ingestion story: a file lands, an event fires, a Copy job runs.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Dynamic thresholds and stateful conditions in Activator</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, supporting adaptive alerting that learns from history.</p>
+    <div class="card-extended"><p>Adaptive thresholds based on historical patterns, plus stateful conditions that evaluate behavior over a time window.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="iq-fabric-iq">
+                <h2>IQ (Fabric IQ) <span class="count">26</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>The shared semantic and context layer for trusted AI agents is now generally available, unifying ontology, graph, planning, and operations under one product surface.</p>
+    <div class="card-extended"><p>The shared semantic and context layer that grounds AI agents in trusted business meaning, now GA. It unifies OneLake data, Power BI semantic models, ontologies, planning, and operations under one product surface, and extends out into Microsoft Foundry, Copilot Studio, GitHub Copilot, and Microsoft 365 Copilot.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Graph in Fabric</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Relationship-first modeling on OneLake with scale-out sharded processing, ISO/IEC 39075 GQL, and natural-language-to-GQL.</p>
+    <div class="card-extended"><p>Relationship-first modeling on OneLake with scale-out sharded processing, now GA. Built natively on the ISO/IEC 39075 Graph Query Language and complemented by natural-language-to-GQL, it inherits Fabric&#x27;s security and governance with no separate pipelines to maintain.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Planning in Fabric</h3>
+        <span class="badge" style="background:#107C10">GA (later in June)</span>
+    </header>
+    <p>Plans over trusted data, semantic models, and ontologies with writeback into Fabric for closed-loop execution.</p>
+    <div class="card-extended"><p>Plans, budgets, forecasts, and scenario models built on top of Fabric&#x27;s semantic models and ontologies. Plans are not static outputs: they can be written back into Fabric to drive execution, enabling closed-loop alignment between planning and operations.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Operations Agents</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Agents that monitor live conditions, evaluate business rules, and recommend or execute actions, grounded in ontology entities and integrated with RTI and Foundry.</p>
+    <div class="card-extended"><p>Agents that monitor live conditions, evaluate business rules, and recommend or execute actions, now GA. They run on the same governed substrate as the rest of Fabric and integrate natively with Real-Time Intelligence for signals and Microsoft Foundry for orchestration.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology: untyped properties, metadata enrichment, name reuse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Modeling now supports untyped properties, richer metadata, and the same name across relationships and properties.</p>
+    <div class="card-extended"><p>The ontology modeler now supports untyped properties, richer metadata on entity types, and reusing the same name across relationships and properties. Small modeling improvements that together remove a lot of friction in real-world ontology design.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology: item-level access control</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Granular access control at the ontology item level.</p>
+    <div class="card-extended"><p>Granular access control at the ontology item level, so you can govern who sees which entity types, relationships, and properties. Brings ontology security in line with what enterprises already expect from Lakehouse and Warehouse.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology: query reliability and performance</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Engine improvements for predictable ontology queries.</p>
+    <div class="card-extended"><p>Engine-level improvements that make ontology queries more predictable in both latency and behavior. Foundational work that matters once you start putting ontology queries on the critical path for agents.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology: Canvas UX updates</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Refreshed modeling canvas in the ontology designer.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology: self-guided walkthrough</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Built-in onboarding for first-time ontology authors.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology: simplified relationship configuration</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Streamlined UX for defining relationships between entity types.</p>
+    <div class="card-extended"><p>A streamlined UX for defining relationships between entity types, including direction, cardinality, and naming. Most of the time you spend building an ontology is on relationships, and this is where it pays off.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology MCP</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Expose the ontology to external agents and tools via the Model Context Protocol.</p>
+    <div class="card-extended"><p>Expose the ontology to any external agent or tool that speaks Model Context Protocol. This is how Fabric IQ becomes the semantic backbone of agents living outside Fabric, including in Foundry, Copilot Studio, GitHub Copilot, and third-party tools.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ Ontology in Foundry IQ</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Use Fabric IQ ontologies as knowledge sources for Microsoft Foundry agents.</p>
+    <div class="card-extended"><p>Use a Fabric IQ ontology as a knowledge source for a Microsoft Foundry agent, directly from the Foundry authoring experience. Removes the manual plumbing previously required to bridge Foundry and Fabric IQ.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ in Copilot Studio via Agent 365</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Add Fabric IQ as a first-party tool in Copilot Studio agents through Agent 365.</p>
+    <div class="card-extended"><p>Add Fabric IQ as a first-party tool inside Copilot Studio agents, via the Agent 365 platform. The cleanest way to bring governed Fabric semantics into the agents that business users actually build day to day.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The semantic layer powering trusted AI agents &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ in M365 Copilot Cowork and BizChat</h3>
+        <span class="badge" style="background:#8764B8">Frontier</span>
+    </header>
+    <p>Early access integration that brings Fabric IQ context into Cowork and BizChat experiences.</p>
+    <div class="card-extended"><p>Brings Fabric IQ context (Power BI reports and semantic models to start) directly into Microsoft 365 Copilot experiences like Cowork and BizChat. Combined with Work IQ, agents can detect changes in key metrics and trigger follow-ups, all grounded in governed Fabric data.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric IQ in GitHub Copilot CLI</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Reach Fabric IQ from the GitHub Copilot CLI through Agent Skills for Fabric.</p>
+    <div class="card-extended"><p>Reach Fabric IQ from the GitHub Copilot CLI through Agent Skills for Fabric. Aimed at developers who want their coding agent to be aware of the actual business semantics, not just the schema.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Data agent MCP</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, for calling Fabric data agents over MCP.</p>
+    <div class="card-extended"><p>Call Fabric data agents over MCP, now GA. The standard interface for agent-to-agent composition: a coding agent or business agent can invoke a Fabric data agent as one of its tools.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric IQ: The shared context layer for AI agents and real-time applications &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Service Principal support</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Run data agents as service principals for unattended scenarios.</p>
+    <div class="card-extended"><p>Run a data agent under a service principal identity, instead of always needing an interactive user. Essential for unattended scenarios and for embedding data agents inside other applications.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Observability in Microsoft Foundry</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Trace, evaluate, and monitor data agents from Foundry.</p>
+    <div class="card-extended"><p>Trace, evaluate, and monitor Fabric data agents from inside Microsoft Foundry. Same observability stack you use for Foundry-hosted agents, now applied to agents that live in Fabric.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents in Microsoft 365 Copilot</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, surfacing data agents inside M365 Copilot.</p>
+    <div class="card-extended"><p>Fabric data agents surface as first-class skills inside Microsoft 365 Copilot, now GA. Lets information workers ask grounded data questions in the same chat surface they already use for everything else.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Creator Agent for SQL and Eventhouse</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>AI-assisted setup that bootstraps a data agent against SQL or Eventhouse sources.</p>
+    <div class="card-extended"><p>An AI-assisted setup experience that bootstraps a data agent against SQL or Eventhouse sources, picking sensible defaults and authoring an initial set of tools. Dramatically shortens the time to a useful first version of a data agent.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Preview Runtime Opt-In</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Opt into the latest data agent runtime to get newest capabilities early.</p>
+    <div class="card-extended"><p>Opt into the latest data agent runtime to access new capabilities before they become the default.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Improved NL2SQL Engine</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Higher accuracy SQL generation from natural language.</p>
+    <div class="card-extended"><p>An improved natural-language-to-SQL engine inside data agents, with higher accuracy on real enterprise schemas.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Improved Routing Across Sources</h3>
+        <span class="badge" style="background:#605E5C">Unknown</span>
+    </header>
+    <p>Better source selection when a data agent spans multiple sources.</p>
+    <div class="card-extended"><p>Improved source selection when a data agent spans multiple sources, such as a Warehouse, an Eventhouse, and a semantic model.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Code Interpreter Tool</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Built-in code interpreter for analytical follow-up questions.</p>
+    <div class="card-extended"><p>A built-in code interpreter that lets a data agent run Python on the data it has just retrieved, for charts, analyses, or transformations.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents GPT-5.X model upgrade</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Roughly 20 percent accuracy improvement from the new default model generation.</p>
+    <div class="card-extended"><p>The default model generation for Fabric data agents moves to GPT-5.X, with roughly a 20 percent accuracy improvement reported by Microsoft.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Data Agents Visualizations</h3>
+        <span class="badge" style="background:#D83B01">Coming Soon (Public Preview)</span>
+    </header>
+    <p>Native chart output as part of data agent responses.</p>
+    <div class="card-extended"><p>Native chart output as part of a data agent&#x27;s response, instead of just text and tables. Makes the agent feel a lot closer to a real analytical assistant, especially in chat surfaces like Teams and M365 Copilot.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building the agentic analytics stack: Fabric Analytics at Build &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="onelake">
+                <h2>OneLake <span class="count">5</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>OneLake storage tiers and lifecycle management</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Cold and archive tiers with rule-based lifecycle for OneLake data.</p>
+    <div class="card-extended"><p>Cold and archive tiers for OneLake, with rule-based lifecycle policies to move data between tiers automatically. The standard mechanism for keeping storage costs under control as the OneLake estate grows.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>OneLake item-size reporting</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Surface per-item size to support cost and capacity planning.</p>
+    <div class="card-extended"><p>Workspace admins can see all items storing data in OneLake, sort and search by amount stored, and view the breakdown across visible, system, and soft-deleted data. Refreshable on demand.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>OneLake shortcuts to SharePoint and OneDrive</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, for shortcut access to SharePoint document libraries and OneDrive content.</p>
+    <div class="card-extended"><p>Shortcuts that point directly at SharePoint document libraries and OneDrive content, now GA. Means files that live in the Microsoft 365 world become queryable Fabric assets without any copy or sync.</p></div>
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>OneLake shortcuts directly from Fabric Data Warehouses</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Create OneLake shortcuts that target Fabric Warehouse tables.</p>
+    <div class="card-extended"><p>Create OneLake shortcuts that target Fabric Warehouse tables, in addition to Lakehouse data. Enables cross-workspace warehouse sharing through the shortcut model.</p></div>
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>OneLake catalog in Microsoft Foundry</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, with the OneLake catalog embedded in the Foundry Knowledge experience.</p>
+    <div class="card-extended"><p>The OneLake catalog is embedded in the Microsoft Foundry Knowledge experience, now GA. Means a Foundry agent can discover and use Fabric data directly, with governance preserved.</p></div>
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="power-bi">
+                <h2>Power BI <span class="count">4</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>DAX User-Defined Functions</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>DAX UDFs are now GA as first-class, typed, parameterized semantic-model objects, turning DAX into a governed, reusable building-block layer.</p>
+    <div class="card-extended"><p>DAX UDFs are now GA as first-class, typed, parameterized semantic-model objects, with web modeling, Model View authoring, automatic reference sync on rename, the INFO.USERDEFINEDFUNCTIONS DMV, and SSMS 22.5 support. Turns DAX into a governed, reusable building-block layer that both humans and AI agents can discover and call.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/DAX-User-Defined-Functions-Generally-Available/ba-p/5185738" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: DAX User-Defined Functions (Generally Available) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Agent Skills for Power BI</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Successor to the Power BI Modeling MCP, with end-to-end agentic development across both semantic models and reports via PBIP.</p>
+    <div class="card-extended"><p>Successor to the Power BI Modeling MCP, covering end-to-end agentic development across both semantic models and reports via PBIP. Works on new and existing solutions, accepts natural language or even a screenshot of the desired outcome, and drives report authoring in addition to modeling.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/Building-in-the-Agentic-Era-with-Power-BI-and-Fabric/ba-p/5190754" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building in the Agentic Era with Power BI and Fabric &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Apps on Semantic Models</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>AI coding agents can build and deploy Fabric apps directly on Power BI semantic models, reusing measures, relationships, and governance.</p>
+    <div class="card-extended"><p>AI coding agents can build and deploy Fabric-native web apps directly on top of a Power BI semantic model, reusing the trusted measures, relationships, and governance already defined there. The bridge from a semantic model to an operational application without rebuilding the metric layer.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/Building-in-the-Agentic-Era-with-Power-BI-and-Fabric/ba-p/5190754" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Building in the Agentic Era with Power BI and Fabric &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Org apps in Fabric</h3>
+        <span class="badge" style="background:#107C10">GA (coming weeks)</span>
+    </header>
+    <p>Re-envisioned organizational apps go GA with multiple org apps per workspace, mixed Fabric and Power BI content, and the new Audiences feature for fine-grained per-group visibility.</p>
+    <div class="card-extended"><p>Now supports multiple org apps per workspace, mixed Fabric and Power BI content, and a new Audiences feature for fine-grained per-group visibility.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/Power-BI-at-Microsoft-Build-2026-The-Agentic-Era-of-analytics/ba-p/5191671" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Power BI at Microsoft Build 2026: The Agentic Era of analytics &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="fabric-developer-experiences">
+                <h2>Fabric Developer Experiences <span class="count">4</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Git Integration with GitHub Enterprise Cloud and Data Residency</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, enabling source control on Fabric items via GitHub Enterprise Cloud with regional data residency for regulated tenants.</p>
+    <div class="card-extended"><p>Source control on Fabric items via GitHub Enterprise Cloud, now GA, with regional data residency support for regulated tenants.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Fabric June 2026 Feature Summary &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Rayfin SDK and CLI</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Open-source backend-as-code framework for Fabric: define data model, APIs, identity, and policies in code; deploy as a Fabric artifact.</p>
+    <div class="card-extended"><p>The deployed app includes built-in database, authentication, and frontend hosting, all governed as a Fabric item. App data lands automatically in OneLake, so anything the app produces is immediately available to Power BI, notebooks, and data agents without an additional pipeline.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Introducing-Rayfin-A-new-AI-first-way-to-build-deploy-and-govern/ba-p/5191676" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Introducing Rayfin: A new AI-first way to build, deploy and govern apps on Fabric &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Fabric Apps</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New &#x27;app&#x27; artifact in Fabric, built on Rayfin and natively integrated with SQL database in Fabric.</p>
+    <div class="card-extended"><p>Designed for AI-first applications, where the operational data and the analytical estate live in the same governed plane.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Introducing-Rayfin-A-new-AI-first-way-to-build-deploy-and-govern/ba-p/5191676" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Introducing Rayfin: A new AI-first way to build, deploy and govern apps on Fabric &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Replit partnership for Fabric apps</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Build AI-first apps on Replit and deploy them to a customer&#x27;s Fabric tenant with one click.</p>
+    <div class="card-extended"><p>Apps built on Replit, a leading AI coding platform, can now be deployed directly into a customer&#x27;s Fabric tenant in one click. Shortens the path from &#x27;idea on Replit&#x27; to &#x27;governed enterprise app on Fabric&#x27; from weeks to hours.</p></div>
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            <section id="databases">
+                <h2>Databases <span class="count">18</span></h2>
+                <div class="grid">
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure HorizonDB</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>New PostgreSQL-compatible managed database from Microsoft, positioned as a hyperscale Postgres for AI-era workloads.</p>
+    <div class="card-extended"><p>Up to 128 TB of storage, 3,072 vCores, multi-zone sub-millisecond latency, built-in vector search, and integrated AI model management. First-class connectivity to Microsoft Foundry and Fabric.</p></div>
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure Database for PostgreSQL: Microsoft Defender for Cloud integration</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Defender for Cloud now natively protects Azure Database for PostgreSQL.</p>
+
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure Database for PostgreSQL: Oracle and PostgreSQL discovery and assessment tooling</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Built-in discovery and assessment to plan migrations from Oracle and other Postgres estates.</p>
+
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Database Hub in Fabric</h3>
+        <span class="badge" style="background:#5C2D91">Private Preview</span>
+    </header>
+    <p>Central plane to manage Microsoft Databases (SQL DB in Fabric, Cosmos DB in Fabric, HorizonDB) with one-click mirroring into OneLake.</p>
+
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure Cosmos DB Linux Emulator</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, providing a fully local Linux container that mirrors the cloud service for development and CI.</p>
+
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure Cosmos DB semantic reranking</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Built-in reranker that improves vector search relevance for RAG and agent scenarios without standing up an external service.</p>
+
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure Cosmos DB agent memory toolkit</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Drop-in primitives for storing and retrieving agent conversational memory directly in Cosmos DB.</p>
+
+    <a class="source" href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Schema Designer in MSSQL extension for VS Code</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, with natural language schema design that generates T-SQL and ORM code.</p>
+    <div class="card-extended"><p>Generates T-SQL and ORM code for Prisma, Sequelize, TypeORM, Drizzle, SQLAlchemy, and Entity Framework Core. Accepts JSON, documents, or images as inputs for schema generation, with Accept/Undo controls and a consolidated diff view before any database change.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Data API builder in MSSQL extension for VS Code</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, exposing REST, GraphQL, and MCP endpoints with RBAC and one-click Docker.</p>
+    <div class="card-extended"><p>Generates REST, GraphQL, and MCP endpoints with per-entity role-based access control and one-click Docker containerization. Includes a built-in Swagger UI and GraphQL playground in VS Code&#x27;s browser for testing, and entities can be configured via GitHub Copilot chat.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>SQL Notebooks in VS Code</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>Previously in preview, now GA, with full Jupyter .ipynb support and a multi-kernel experience for SQL and Python.</p>
+    <div class="card-extended"><p>Interactive SQL execution with rich result grids, IntelliSense from your active connection, and markdown documentation cells. Multi-kernel support lets you combine SQL and Python in the same notebook.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Azure SQL Database provisioning from VS Code</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Provision Azure SQL Databases, including free options, without leaving VS Code.</p>
+    <div class="card-extended"><p>Provision Azure SQL Database instances directly from VS Code, including the free options, without leaving the editor.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>GitHub Copilot Agent Mode in SSMS</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Multi-step Copilot agent inside SSMS that reads execution plans, suggests indexes, and refactors stored procedures.</p>
+    <div class="card-extended"><p>Reads context across database objects, reasons through multi-step problems, and executes workflows. For performance issues, it reads the execution plan, identifies missing indexes, evaluates trade-offs, and generates the DDL. For refactoring, it traces stored procedure dependencies, rewrites the logic, and presents the diff.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>SQL Formatter in SSMS</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Built-in T-SQL formatter in SSMS.</p>
+
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Schema Compare in SSMS</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Drift detection across environments with SQL Projects integration.</p>
+    <div class="card-extended"><p>Compare, diff, and generate migration scripts directly from a SQL Projects database project, integrated into CI/CD workflows.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Regex-powered Dynamic Data Masking</h3>
+        <span class="badge" style="background:#D83B01">Coming Soon (Preview)</span>
+    </header>
+    <p>Mask data dynamically using regex patterns for fine-grained control.</p>
+    <div class="card-extended"><p>Define masking rules using regular expressions, for more precision than the existing default, partial, and email presets. Especially useful for variable-length data.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Local time zone support</h3>
+        <span class="badge" style="background:#D83B01">Coming Soon (Preview)</span>
+    </header>
+    <p>Native local time zone handling in Hyperscale, Azure SQL Managed Instance, and SQL database in Fabric.</p>
+    <div class="card-extended"><p>Set the database time zone once and avoid UTC conversion in every query. Available for Hyperscale, Azure SQL Managed Instance, and SQL database in Fabric.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>Change Event Streaming (CES) in Hyperscale and SQL MI</h3>
+        <span class="badge" style="background:#0078D4">Public Preview</span>
+    </header>
+    <p>Stream row-level changes from Hyperscale and SQL MI to Azure Event Hubs as CloudEvents; SQL database in Fabric coming soon.</p>
+    <div class="card-extended"><p>Stream row-level changes from Hyperscale and SQL Managed Instance to Azure Event Hubs as CloudEvents, with SQL database in Fabric coming next. The standard mechanism for building event-driven applications on top of an existing SQL estate.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+<article class="card has-details" onclick="if(this.classList.contains('has-details')) this.classList.toggle('expanded')">
+    <header>
+        <h3>SQL AI Developer certification</h3>
+        <span class="badge" style="background:#107C10">GA</span>
+    </header>
+    <p>New Microsoft certification for developers building AI applications on the SQL platform.</p>
+    <div class="card-extended"><p>Validates skills in agentic workflows, AI-assisted development, and modern SQL tooling.</p></div>
+    <a class="source" href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener" onclick="event.stopPropagation()">Source: The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale) &rarr;</a>
+</article>
+
+                </div>
+            </section>
+
+            </main>
+
+            <footer>
+                <h2>Source blogs</h2>
+                <ol><li><strong>[A]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Building-the-agentic-analytics-stack-Fabric-Analytics-at-Build/ba-p/5191634" target="_blank" rel="noopener">Building the agentic analytics stack: Fabric Analytics at Build</a></li><li><strong>[B]</strong> <a href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noopener">Microsoft Build 2026: Building agentic apps with Microsoft Fabric and Microsoft Databases (Azure blog)</a></li><li><strong>[C]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690" target="_blank" rel="noopener">Fabric June 2026 Feature Summary</a></li><li><strong>[D]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/From-research-to-product-Microsoft-Fabric-wins-best-industry/ba-p/5191608" target="_blank" rel="noopener">From research to product: Microsoft Fabric wins SIGMOD Best Industry Paper (CoddSpeed)</a></li><li><strong>[E]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Build-2026-From-data-to-intelligence-Faster-with-Fabric-Data/ba-p/5191636" target="_blank" rel="noopener">Build 2026: From data to intelligence, faster with Fabric Data Factory</a></li><li><strong>[F]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/The-Era-of-the-Agentic-Database-Developer-Microsoft-SQL/ba-p/5190062" target="_blank" rel="noopener">The Era of the Agentic Database Developer (SQL Server, Azure SQL, Hyperscale)</a></li><li><strong>[G]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-semantic-layer-powering-trusted-AI-agents-at/ba-p/5190739" target="_blank" rel="noopener">Fabric IQ: The semantic layer powering trusted AI agents</a></li><li><strong>[H]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Introducing-Rayfin-A-new-AI-first-way-to-build-deploy-and-govern/ba-p/5191676" target="_blank" rel="noopener">Introducing Rayfin: A new AI-first way to build, deploy and govern apps on Fabric</a></li><li><strong>[I]</strong> <a href="https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-IQ-The-shared-context-layer-for-AI-agents-and-real-time/ba-p/5191678" target="_blank" rel="noopener">Fabric IQ: The shared context layer for AI agents and real-time applications</a></li><li><strong>[J]</strong> <a href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/Building-in-the-Agentic-Era-with-Power-BI-and-Fabric/ba-p/5190754" target="_blank" rel="noopener">Building in the Agentic Era with Power BI and Fabric</a></li><li><strong>[K]</strong> <a href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/Power-BI-at-Microsoft-Build-2026-The-Agentic-Era-of-analytics/ba-p/5191671" target="_blank" rel="noopener">Power BI at Microsoft Build 2026: The Agentic Era of analytics</a></li><li><strong>[L]</strong> <a href="https://community.fabric.microsoft.com/t5/Power-BI-Updates-Blog/DAX-User-Defined-Functions-Generally-Available/ba-p/5185738" target="_blank" rel="noopener">DAX User-Defined Functions (Generally Available)</a></li></ol>
+            </footer>
+        </body>
+        </html>
